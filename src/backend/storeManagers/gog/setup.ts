@@ -326,9 +326,9 @@ async function setup(
 
                 break
               }
+              mkdirSync(path.join(targetPath, '..'), { recursive: true })
               copySync(sourcePath, targetPath, {
-                overwrite: actionArguments?.overwrite,
-                recursive: true
+                overwrite: actionArguments?.overwrite
               })
             }
           } else if (type === 'file') {

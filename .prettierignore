@@ -6,3 +6,4 @@ public/locales/
 flatpak
 flatpak-build
 sign/
+pnpm-lock.yaml

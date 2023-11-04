@@ -17,17 +17,20 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: sudo apt install snapcraft -y
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Install node-gyp.
-        run: yarn global add node-gyp
+        run: pnpm add --global node-gyp
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Build artifacts.
-        run: yarn dist:linux appimage snap --publish=never
+        run: pnpm dist:linux appimage snap --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

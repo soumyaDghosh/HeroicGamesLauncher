@@ -11,7 +11,7 @@ export default function setup(): void {
     process.env.CI = 'e2e'
     if (process.env.TEST_PACKAGED === 'true') {
       console.log('Testing packaged build')
-      // must run yarn dist:<platform> prior to test
+      // must run pnpm dist:<platform> prior to test
       const latestBuild = findLatestBuild('dist')
       const appInfo = parseElectronApp(latestBuild)
       console.log(

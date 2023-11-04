@@ -66,9 +66,8 @@ export async function initLegendaryLibraryManager() {
     ? join(app.getPath('appData'), 'legendary')
     : join(userHome, '.config', 'legendary')
   if (!existsSync(legendaryConfigPath) && existsSync(globalLegendaryConfig)) {
-    copySync(globalLegendaryConfig, legendaryConfigPath, {
-      recursive: true
-    })
+    mkdirSync(join(legendaryConfigPath, '..'), { recursive: true })
+    copySync(globalLegendaryConfig, legendaryConfigPath)
   }
 
   loadGamesInAccount()

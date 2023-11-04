@@ -1,3 +1,3 @@
 FROM archlinux:latest
 
-RUN pacman -Syyu --noconfirm && pacman -S nodejs npm yarn --noconfirm 
+RUN pacman -Syyu --noconfirm && pacman -S nodejs npm pnpm --noconfirm

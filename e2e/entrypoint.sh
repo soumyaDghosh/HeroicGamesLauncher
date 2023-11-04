@@ -29,14 +29,14 @@ then
     os="mac"
 fi
 
-yarn
+pnpm i
 
 # build
 if [[ "$TEST_PACKAGED" == "true" ]]
 then
-    yarn dist:$os
+    pnpm dist:$os
 else
-    yarn vite build
+    pnpm vite build
 fi
 
 echo
@@ -47,7 +47,7 @@ echo
 
 if [[ "$os" == "linux" ]]
 then
-    xvfb-run -a -e /dev/stdout -s "-screen 0 1280x960x24" yarn playwright test .*.spec.ts
+    xvfb-run -a -e /dev/stdout -s "-screen 0 1280x960x24" pnpm playwright test .*.spec.ts
 else
-    yarn playwright test .*.spec.ts
+    pnpm playwright test .*.spec.ts
 fi

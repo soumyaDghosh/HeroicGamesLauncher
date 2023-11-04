@@ -11,13 +11,16 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Install node-gyp.
-        run: yarn global add node-gyp
+        run: pnpm add --global node-gyp
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Test
-        run: yarn test:ci
+        run: pnpm test:ci

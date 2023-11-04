@@ -10,5 +10,5 @@
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [],
 
-  "postCreateCommand": "pacman -Syyu --noconfirm && pacman -S nodejs npm yarn --noconfirm"
+  "postCreateCommand": "pacman -Syyu --noconfirm && pacman -S nodejs npm pnpm --noconfirm"
 }

@@ -11,37 +11,43 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Install node-gyp.
-        run: yarn global add node-gyp
+        run: pnpm add --global node-gyp
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
-        run: yarn test:e2e-ci
+        run: pnpm test:e2e-ci
 
   mac:
     runs-on: macos-latest
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Install node-gyp.
-        run: yarn global add node-gyp
+        run: pnpm add --global node-gyp
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
-        run: yarn test:e2e-ci
+        run: pnpm test:e2e-ci
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
@@ -52,6 +58,9 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
@@ -61,7 +70,7 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
-        run: yarn test:e2e-ci
+        run: pnpm test:e2e-ci
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

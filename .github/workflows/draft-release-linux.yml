@@ -12,12 +12,15 @@ jobs:
     steps:
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm snapcraft
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile
-      - run: yarn release:linux
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm release:linux
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

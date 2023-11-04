@@ -22,21 +22,24 @@ jobs:
         run: echo "tag name ${{ github.ref_name }}"
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Reconfigure git to use HTTP authentication
         run: >
           git config --global url."https://github.com/".insteadOf
           ssh://git@github.com/
       - name: Install modules.
-        run: yarn install
+        run: pnpm install
       - name: Checkout flathub repository.
         run: git clone https://github.com/flathub/com.heroicgameslauncher.hgl.git
       - name: Update flathub release
-        run: export RELEASE_VERSION=${{ github.ref_name }} && yarn release:updateFlathub:ci
+        run: export RELEASE_VERSION=${{ github.ref_name }} && pnpm release:updateFlathub:ci
       - name: Branch flathub repo
         run: git checkout -b "${{ github.ref_name }}"
         working-directory: ./com.heroicgameslauncher.hgl

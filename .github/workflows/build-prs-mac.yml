@@ -15,17 +15,20 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: Install node-gyp.
-        run: yarn global add node-gyp
+        run: pnpm add --global node-gyp
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Build artifacts.
-        run: yarn dist:mac --x64 --arm64 --publish=never
+        run: pnpm dist:mac --x64 --arm64 --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
