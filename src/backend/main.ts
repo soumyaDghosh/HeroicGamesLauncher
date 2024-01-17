@@ -158,6 +158,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { initConfig } from './config/shared'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -311,6 +312,7 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
+    initConfig()
 
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
