@@ -547,6 +547,7 @@ export interface DiskSpaceData {
 
 export interface ToolArgs {
   appName: string
+  runner: Runner
   action: 'backup' | 'restore'
 }
 
