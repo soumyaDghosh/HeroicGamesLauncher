@@ -765,10 +765,9 @@ export async function repair(appName: string): Promise<ExecResult> {
 export async function syncSaves(
   appName: string,
   arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[]
+  paths: KeyValuePair[] | null
 ): Promise<string> {
-  if (!gogSaves) {
+  if (!paths) {
     return 'Unable to sync saves, gogSaves is undefined'
   }
 
@@ -784,17 +783,17 @@ export async function syncSaves(
 
   let fullOutput = ''
 
-  for (const location of gogSaves) {
+  for (const location of paths) {
     const commandParts = [
       'save-sync',
-      location.location,
+      location.value,
       appName,
       '--os',
       gameInfo.install.platform,
       '--ts',
-      syncStore.get(`${appName}.${location.name}`, '0'),
+      syncStore.get(`${appName}.${location.key}`, '0'),
       '--name',
-      location.name,
+      location.key,
       arg
     ]
 
@@ -813,7 +812,7 @@ export async function syncSaves(
       )
     }
     if (res.stdout) {
-      syncStore.set(`${appName}.${location.name}`, res.stdout.trim())
+      syncStore.set(`${appName}.${location.key}`, res.stdout.trim())
     }
   }
 
