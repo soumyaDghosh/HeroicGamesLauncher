@@ -56,6 +56,7 @@ import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform, Path } from './commands/base'
 import shlex from 'shlex'
 import { Entries } from 'type-fest'
+import { runLegendaryCommandStub } from './e2eMock'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
@@ -641,6 +642,10 @@ export async function runRunnerCommand(
   command: LegendaryCommand,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
+  if (process.env.CI === 'e2e') {
+    return runLegendaryCommandStub(command, options)
+  }
+
   const { dir, bin } = getLegendaryBin()
 
   // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
