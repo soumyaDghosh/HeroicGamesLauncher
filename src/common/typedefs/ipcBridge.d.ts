@@ -35,7 +35,8 @@ import {
   ExtraInfo,
   LaunchOption,
   DownloadManagerState,
-  InstallInfo
+  InstallInfo,
+  LegendaryStub
 } from 'common/types'
 import { SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -45,7 +46,6 @@ import {
   NileUserData
 } from 'common/types/nile'
 import type { SystemInformation } from 'backend/utils/systeminfo'
-import { runLegendaryCommandStubFunction } from 'backend/storeManagers/legendary/e2eMock'
 
 /**
  * Some notes here:
@@ -129,7 +129,7 @@ interface SyncIPCFunctions {
  * events don't have an IpcMainEvent first argument when handled
  */
 interface TestSyncIPCFunctions {
-  setRunLegendaryCommandStub: (fun: runLegendaryCommandStubFunction) => void
+  setRunLegendaryCommandStub: (stubs: LegendaryStub[]) => void
   resetRunLegendaryCommandStub: () => void
 }
 

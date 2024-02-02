@@ -12,7 +12,6 @@ import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
-import { LegendaryCommand } from 'backend/storeManagers/legendary/commands'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -785,7 +784,8 @@ export interface KnowFixesInfo {
   runInPrefix?: string[]
 }
 
-export type runLegendaryCommandStubFunction = (
-  command: LegendaryCommand,
-  options?: CallRunnerOptions
-) => ExecResult
+export interface LegendaryStub {
+  command: string
+  stdout: string
+  stderr?: string
+}
