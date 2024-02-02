@@ -36,7 +36,7 @@ import {
   LaunchOption,
   DownloadManagerState,
   InstallInfo,
-  LegendaryStub
+  RunnerCommandStub
 } from 'common/types'
 import { SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -129,8 +129,12 @@ interface SyncIPCFunctions {
  * events don't have an IpcMainEvent first argument when handled
  */
 interface TestSyncIPCFunctions {
-  setRunLegendaryCommandStub: (stubs: LegendaryStub[]) => void
-  resetRunLegendaryCommandStub: () => void
+  setLegendaryCommandStub: (stubs: RunnerCommandStub[]) => void
+  resetLegendaryCommandStub: () => void
+  setGogdlCommandStub: (stubs: RunnerCommandStub[]) => void
+  resetGogdlCommandStub: () => void
+  setNileCommandStub: (stubs: RunnerCommandStub[]) => void
+  resetNileCommandStub: () => void
 }
 
 // ts-prune-ignore-next
