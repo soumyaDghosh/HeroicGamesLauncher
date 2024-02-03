@@ -153,7 +153,7 @@ import {
 import { storeMap } from 'common/utils'
 import { availableWineVersions, initConfig } from './config/shared'
 import { getGlobalConfig } from './config/global'
-import { getGameConfig } from './config/game'
+import { clearGameConfig, getGameConfig } from './config/game'
 import { PositiveInteger } from './schemas'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
@@ -1109,7 +1109,7 @@ ipcMain.handle(
           }
         }
 
-        removeIfExists(appName.concat('.json'))
+        clearGameConfig(appName, runner)
         removeIfExists(appName.concat('.log'))
         removeIfExists(appName.concat('-lastPlay.log'))
       }
