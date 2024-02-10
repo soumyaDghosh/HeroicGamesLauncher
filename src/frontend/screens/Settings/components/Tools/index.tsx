@@ -38,7 +38,7 @@ export default function Tools() {
       tool,
       exe,
       appName,
-      runner
+      runner: runner!
     })
 
     if (tool in toolStates) {
@@ -48,7 +48,7 @@ export default function Tools() {
 
   const handleRunExe = async () => {
     let exe = ''
-    const gameinfo = await getGameInfo(appName, runner)
+    const gameinfo = await getGameInfo(appName, runner!)
     if (!gameinfo) return
     const defaultPath =
       gameinfo.runner === 'sideload' ? undefined : gameinfo.install.install_path
