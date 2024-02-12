@@ -19,12 +19,12 @@ export default function Tools() {
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
 
-  if (isDefault || isWindows) {
+  if (isDefault || isWindows || !runner) {
     return <></>
   }
 
   type Tool = 'winecfg' | string
-  async function callTools(tool: Tool, exe?: string) {
+  const callTools = async (tool: Tool, exe?: string) => {
     const toolStates = {
       winecfg: setWinecfgRunning,
       runExe: setRunExeRunning
@@ -38,7 +38,7 @@ export default function Tools() {
       tool,
       exe,
       appName,
-      runner: runner!
+      runner
     })
 
     if (tool in toolStates) {
@@ -48,7 +48,7 @@ export default function Tools() {
 
   const handleRunExe = async () => {
     let exe = ''
-    const gameinfo = await getGameInfo(appName, runner!)
+    const gameinfo = await getGameInfo(appName, runner)
     if (!gameinfo) return
     const defaultPath =
       gameinfo.runner === 'sideload' ? undefined : gameinfo.install.install_path
@@ -65,7 +65,7 @@ export default function Tools() {
     }
   }
 
-  async function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
+  const dropHandler = async (ev: React.DragEvent<HTMLSpanElement>) => {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
 
@@ -98,7 +98,9 @@ export default function Tools() {
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
-        {winetricksRunning && <Winetricks onClose={winetricksDialogClosed} />}
+        {winetricksRunning && (
+          <Winetricks onClose={winetricksDialogClosed} runner={runner} />
+        )}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
